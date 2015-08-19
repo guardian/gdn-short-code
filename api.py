@@ -15,9 +15,8 @@ import content_api
 class ShortUrlLookup(webapp2.RequestHandler):
 	def get(self):
 		path = self.request.get('path')
-		logging.info(path)
+
 		content_data = content_api.read(path, {'show-fields': 'shortUrl'})
-		logging.info(content_data)
 		content_json = json.loads(content_data)
 
 		shortUrl = content_json.get('response', {}).get('content', {}).get('fields', {})['shortUrl']

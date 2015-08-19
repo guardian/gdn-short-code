@@ -47,7 +47,7 @@
 
 <script>
 angular.module('urlApp', [])
-	.controller('ShortUrlCtrl', ['$http', function($http) {
+	.controller('ShortUrlCtrl', ['$http', '$document', function($http, $document) {
 		var self = this;
 
 		self.url = undefined;
@@ -58,7 +58,6 @@ angular.module('urlApp', [])
 		self.selectedShortCode = undefined;
 
 		$http.get('api/short-codes').success(function(data) {
-			console.log(data);
 			self.shortCodes = data;
 			if(data && data.length > 0) {
 				self.selectedShortCode = data[0];
@@ -70,16 +69,17 @@ angular.module('urlApp', [])
 		}
 
 		function determinePath(url) {
-			return 'lifeandstyle/2015/aug/18/paleo-diet-critics-science';
+			var el = $document[0].createElement('a');
+			el.href = url;
+
+			return el.pathname;
 		}
 
 		self.shortCodeChange = function() {
-			console.log(self.selectedShortCode);
 			self.sharableUrl = calculateSharingUrl(self);
 		}
 
 		self.urlChange = function() {
-			console.log(self.url);
 
 			$http.get('api/short-url?path='+determinePath(self.url)).success(function(data) {
 				self.shortUrl = data.shortUrl;
