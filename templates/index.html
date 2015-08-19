@@ -33,11 +33,11 @@
 			</form>
 			</div>
 		</div>
-		<div class="col-md-12">
-			<p>Short url: {{ctrl.shortUrl}}</p>
+		<div class="col-md-12" ng-show="ctrl.shortUrl">
+			<p>Short url: <a ng-href="{{ctrl.shortUrl}}">{{ctrl.shortUrl}}</a></p>
 		</div>
-		<div class="col-md-12">
-			<p>Shareable url: {{ctrl.sharableUrl}} </p>
+		<div class="col-md-12" ng-show="ctrl.shareableUrl">
+			<p>Shareable url: {{ctrl.shareableUrl}} [<a ng-href="{{ctrl.shareableUrl}}">link</a>] </p>
 		</div>
 
 		{% endraw %}
@@ -51,8 +51,8 @@ angular.module('urlApp', [])
 		var self = this;
 
 		self.url = undefined;
-		self.shortUrl = 'Short url';
-		self.sharableUrl = 'Sharable url';
+		self.shortUrl = undefined;
+		self.shareableUrl = undefined;
 
 		self.shortCodes = [];
 		self.selectedShortCode = undefined;
@@ -76,15 +76,20 @@ angular.module('urlApp', [])
 		}
 
 		self.shortCodeChange = function() {
-			self.sharableUrl = calculateSharingUrl(self);
+			if(self.url) {
+				self.shareableUrl = calculateSharingUrl(self);
+			}
 		}
 
 		self.urlChange = function() {
 
+			self.shortUrl = undefined;
+			self.shareableUrl = undefined;
+
 			$http.get('api/short-url?path='+determinePath(self.url)).success(function(data) {
 				self.shortUrl = data.shortUrl;
 
-				self.sharableUrl = calculateSharingUrl(self);
+				self.shareableUrl = calculateSharingUrl(self);
 			});
 		}
 	}]);
