@@ -18,12 +18,17 @@
 			<form>
 			<div class="form-group">
 			<label for="base-url">Content url</label>
-			<input type="text" id="base-url" class="form-control">
+			<input type="text" id="base-url" class="form-control"
+				ng-model="ctrl.url"
+				ng-change="ctrl.urlChange()">
 			</div>
 
 			<div class="form-group">
-			<select id="short-code" class="form-control">
-				<option name="twt">Twitter</option>
+			<select id="short-code" class="form-control"
+				ng-required="true"
+				ng-model="ctrl.selectedShortCode"
+				ng-options="sc.name for sc in ctrl.shortCodes track by sc.code"
+				ng-change="ctrl.shortCodeChange()">
 			</select>
 			</form>
 			</div>
@@ -45,18 +50,43 @@ angular.module('urlApp', [])
 	.controller('ShortUrlCtrl', ['$http', function($http) {
 		var self = this;
 
-		self.path = 'lifeandstyle/2015/aug/18/paleo-diet-critics-science';
+		self.url = undefined;
 		self.shortUrl = 'Short url';
 		self.sharableUrl = 'Sharable url';
 
-		$http.get('api/short-url?path='+self.path).success(function(data) {
-			console.log(data);
-			self.shortUrl =  data.shortUrl;
-		});
+		self.shortCodes = [];
+		self.selectedShortCode = undefined;
 
 		$http.get('api/short-codes').success(function(data) {
 			console.log(data);
+			self.shortCodes = data;
+			if(data && data.length > 0) {
+				self.selectedShortCode = data[0];
+			}
 		});
+
+		function calculateSharingUrl(state) {
+			return state.shortUrl + '/' + state.selectedShortCode.code;
+		}
+
+		function determinePath(url) {
+			return 'lifeandstyle/2015/aug/18/paleo-diet-critics-science';
+		}
+
+		self.shortCodeChange = function() {
+			console.log(self.selectedShortCode);
+		}
+
+		self.urlChange = function() {
+			console.log(self.url);
+
+			$http.get('api/short-url?path='+determinePath(self.url)).success(function(data) {
+				console.log(data);
+				self.shortUrl =  data.shortUrl;
+			});
+
+			self.sharableUrl = calculateSharingUrl(self);
+		}
 	}]);
 </script>
 
