@@ -75,6 +75,7 @@ angular.module('urlApp', [])
 
 		self.shortCodeChange = function() {
 			console.log(self.selectedShortCode);
+			self.sharableUrl = calculateSharingUrl(self);
 		}
 
 		self.urlChange = function() {

@@ -4,7 +4,12 @@ import os
 import json
 import logging
 from urllib import quote, urlencode
+import csv
+import StringIO
+
 from google.appengine.api import urlfetch
+
+import data
 
 class ShortUrlLookup(webapp2.RequestHandler):
 	def get(self):
@@ -14,8 +19,12 @@ class ShortUrlLookup(webapp2.RequestHandler):
 
 class ShortCodes(webapp2.RequestHandler):
 	def get(self):
-		payload = [{'name': 'Twitter', 'code': 'twt'},] 
-		self.response.write(json.dumps(payload))
+
+		code_reader = csv.reader(StringIO.StringIO(data.codes_csv), csv.excel)
+
+		codes = [{'name': row[1], 'code': row[0]} for row in code_reader if len(row) > 0]
+
+		self.response.write(json.dumps(codes))
 
 app = webapp2.WSGIApplication([
 	webapp2.Route(r'/api/short-url', handler=ShortUrlLookup),
