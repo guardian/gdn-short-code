@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Share url generator{% endblock %}
+
+{% block content %}
+<div class="container" ng-app="urlApp">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="article-heading">Sharing short code generator</h1>
+
+			<blockquote>Create sharing urls without tears</blockquote>
+		</div>
+	</div>
+
+	<div class="row" ng-controller="ShortUrlCtrl as ctrl">
+		{% raw %}
+		<div class="col-md-12">
+			<form>
+			<div class="form-group">
+			<label for="base-url">Content url</label>
+			<input type="text" id="base-url" class="form-control">
+			</div>
+
+			<div class="form-group">
+			<select id="short-code" class="form-control">
+				<option name="twt">Twitter</option>
+			</select>
+			</form>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<p>Short url: {{ctrl.shortUrl}}</p>
+		</div>
+		<div class="col-md-12">
+			<p>Shareable url: {{ctrl.sharableUrl}} </p>
+		</div>
+
+		{% endraw %}
+	</div>
+</div>
+
+
+<script>
+angular.module('urlApp', [])
+	.controller('ShortUrlCtrl', ['$http', function($http) {
+		var self = this;
+
+		self.path = 'lifeandstyle/2015/aug/18/paleo-diet-critics-science';
+		self.shortUrl = 'Short url';
+		self.sharableUrl = 'Sharable url';
+
+		$http.get('api/short-url?path='+self.path).success(function(data) {
+			console.log(data);
+			self.shortUrl =  data.shortUrl;
+		});
+	}]);
+</script>
+
+{% endblock %}
