@@ -53,6 +53,10 @@ angular.module('urlApp', [])
 			console.log(data);
 			self.shortUrl =  data.shortUrl;
 		});
+
+		$http.get('api/short-codes').success(function(data) {
+			console.log(data);
+		});
 	}]);
 </script>
 
