@@ -66,7 +66,7 @@ angular.module('urlApp', [])
 		});
 
 		function calculateSharingUrl(state) {
-			return state.shortUrl + '/' + state.selectedShortCode.code;
+			return state.shortUrl + '?CMP=' + state.selectedShortCode.code;
 		}
 
 		function determinePath(url) {

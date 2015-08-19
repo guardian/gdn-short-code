@@ -40,7 +40,10 @@ def add_api_key(params):
 def read(content_id, params=None):
 	client = memcache.Client()
 
-	url = "http://{host}{content_path}".format(host=capi_host(), content_path=content_id)
+	if not content_id[0] == '/':
+		content_id = '/' + content_id
+
+	url = "https://{host}{content_path}".format(host=capi_host(), content_path=content_id)
 
 	params = add_api_key(params)
 	url = url + "?" + urllib.urlencode(params)
@@ -62,7 +65,7 @@ def read(content_id, params=None):
 	return result.content
 
 def search(query):
-	url = "http://{host}/search?{params}".format(host=capi_host(),
+	url = "https://{host}/search?{params}".format(host=capi_host(),
 		params=urllib.urlencode(add_api_key(query)))
 
 	logging.info(url)
