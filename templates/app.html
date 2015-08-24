@@ -45,7 +45,7 @@ angular.module('urlApp', [])
 
 			$http.get('api/short-url?path='+determinePath(self.url)).success(
 				function(data) {
-					self.shortUrl = data.shortUrl;
+					self.shortUrl = data.fields.shortUrl;
 
 					self.shareableUrl = calculateSharingUrl(self);
 				}

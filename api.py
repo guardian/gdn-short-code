@@ -24,9 +24,9 @@ class ShortUrlLookup(webapp2.RequestHandler):
 
 		content_json = json.loads(content_data)
 
-		shortUrl = content_json.get('response', {}).get('content', {}).get('fields', {})['shortUrl']
+		content = content_json.get('response', {}).get('content', {})
 
-		self.response.write(json.dumps({'shortUrl': shortUrl}))
+		self.response.write(json.dumps(content))
 
 class ShortCodes(webapp2.RequestHandler):
 	def get(self):
