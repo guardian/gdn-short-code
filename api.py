@@ -17,6 +17,11 @@ class ShortUrlLookup(webapp2.RequestHandler):
 		path = self.request.get('path')
 
 		content_data = content_api.read(path, {'show-fields': 'shortUrl'})
+
+		if not content_data:
+			webapp2.abort(404, 'Url not found in the content API')
+			return
+
 		content_json = json.loads(content_data)
 
 		shortUrl = content_json.get('response', {}).get('content', {}).get('fields', {})['shortUrl']

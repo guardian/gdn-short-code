@@ -1,0 +1,57 @@
+<script>
+angular.module('urlApp', [])
+	.controller('ShortUrlCtrl', ['$http', '$document', function($http, $document) {
+		var self = this;
+
+		self.url = undefined;
+		self.shortUrl = undefined;
+		self.shareableUrl = undefined;
+
+		self.shortCodes = [];
+		self.selectedShortCode = undefined;
+
+		self.lastErrorMessage = undefined;
+
+		$http.get('api/short-codes').success(function(data) {
+			self.shortCodes = data;
+			if(data && data.length > 0) {
+				self.selectedShortCode = data[0];
+			}
+		});
+
+		function calculateSharingUrl(state) {
+			return state.shortUrl + '?CMP=' + state.selectedShortCode.code;
+		}
+
+		function determinePath(url) {
+			var el = $document[0].createElement('a');
+			el.href = url;
+
+			return el.pathname;
+		}
+
+		self.shortCodeChange = function() {
+			if(self.url) {
+				self.shareableUrl = calculateSharingUrl(self);
+			}
+		}
+
+		self.urlChange = function() {
+
+			self.shortUrl = undefined;
+			self.shareableUrl = undefined;
+
+			self.lastErrorMessage = undefined;
+
+			$http.get('api/short-url?path='+determinePath(self.url)).success(
+				function(data) {
+					self.shortUrl = data.shortUrl;
+
+					self.shareableUrl = calculateSharingUrl(self);
+				}
+			).error(function() {
+				self.lastErrorMessage = "Url could not be resolved";
+			});
+		}
+	}]);
+</script>
