@@ -1,6 +1,10 @@
 <script>
-angular.module('urlApp', [])
-	.controller('ShortUrlCtrl', ['$http', '$document', function($http, $document) {
+angular.module('urlApp', [], function($locationProvider) {
+		$locationProvider.html5Mode({
+			enabled: true,
+			requireBase: false
+		});
+	}).controller('ShortUrlCtrl', ['$http', '$document', '$location', function($http, $document, $location) {
 		var self = this;
 
 		self.url = undefined;
@@ -52,6 +56,14 @@ angular.module('urlApp', [])
 			).error(function() {
 				self.lastErrorMessage = "Url could not be resolved";
 			});
+		}
+
+
+		var params = $location.search();
+		
+		if(params.url) {
+			self.url = params.url;
+			self.urlChange();
 		}
 	}]);
 </script>
