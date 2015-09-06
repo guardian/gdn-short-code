@@ -51,7 +51,16 @@ angular.module('urlApp', [], function($locationProvider) {
 				function(data) {
 					self.shortUrl = data.fields.shortUrl;
 
-					//console.log(section);
+					console.log(data);
+
+					if(data.sectionId) {
+						$http.get('api/short-codes/section/' + data.sectionId).success(function(data) {
+							self.shortCodes = data;
+							if(data && data.length > 0) {
+								self.selectedShortCode = data[0];
+							}
+						});
+					}
 
 					self.shareableUrl = calculateSharingUrl(self);
 				}

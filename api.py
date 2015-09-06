@@ -44,6 +44,9 @@ class ShortCodes(webapp2.RequestHandler):
 				if not section:
 					return True
 
+				if not campaign_section:
+					return True
+
 				if section and section == campaign_section:
 					return True
 
