@@ -29,15 +29,33 @@ class ShortUrlLookup(webapp2.RequestHandler):
 		self.response.write(json.dumps(content))
 
 class ShortCodes(webapp2.RequestHandler):
-	def get(self):
+	def get(self, section=None):
 
 		code_reader = csv.reader(StringIO.StringIO(data.codes_csv), csv.excel)
 
-		codes = [{'name': row[1], 'code': row[0]} for row in code_reader if len(row) > 0]
+		def valid_short_code(short_code_row):
+			if not len(row) > 0:
+				return False
+
+			campaign_section = short_code_row[5]
+			campaign_code = short_code_row[3]
+			valid_campaigns = {'Twitter', 'Facebook', 'Instagram', 'Tumblr'}
+			if campaign_code in valid_campaigns:
+				if not section:
+					return True
+
+				if section and section == campaign_section:
+					return True
+
+			return False
+
+
+		codes = [{'name': row[1], 'code': row[0]} for row in code_reader if valid_short_code(row)]
 
 		self.response.write(json.dumps(codes))
 
 app = webapp2.WSGIApplication([
 	webapp2.Route(r'/api/short-url', handler=ShortUrlLookup),
-	webapp2.Route(r'/api/short-codes', handler=ShortCodes),],
+	webapp2.Route(r'/api/short-codes', handler=ShortCodes),
+	webapp2.Route(r'/api/short-codes/section/<section>', handler=ShortCodes),],
                               debug=True)
