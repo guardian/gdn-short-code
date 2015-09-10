@@ -42,12 +42,12 @@
 			<p>Link text: {{ctrl.linkText}}</p>
 		</div>
 
-		<div class="col-md-12" ng-show="ctrl.shortUrl">
-			<p>Short url: <a ng-href="{{ctrl.shortUrl}}">{{ctrl.shortUrl}}</a></p>
-		</div>
-
 		<div class="col-md-12" ng-show="ctrl.shareableUrl">
 			<p>Shareable url: {{ctrl.shareableUrl}} [<a ng-href="{{ctrl.shareableUrl}}">link</a>] </p>
+		</div>
+
+		<div class="col-md-12" ng-show="ctrl.shortUrl">
+			<p>Short url: <a ng-href="{{ctrl.shortUrl}}">{{ctrl.shortUrl}}</a></p>
 		</div>
 
 		{% endraw %}
