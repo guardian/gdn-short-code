@@ -16,7 +16,11 @@ class ShortUrlLookup(webapp2.RequestHandler):
 	def get(self):
 		path = self.request.get('path')
 
-		content_data = content_api.read(path, {'show-fields': 'shortUrl'})
+		payload = {
+			'show-fields': 'shortUrl,linkText',
+		}
+
+		content_data = content_api.read(path, payload)
 
 		if not content_data:
 			webapp2.abort(404, 'Url not found in the content API')
@@ -53,7 +57,7 @@ class ShortCodes(webapp2.RequestHandler):
 			return False
 
 
-		codes = [{'name': row[1], 'code': row[0]} for row in code_reader if valid_short_code(row)]
+		codes = [{'name': row[10], 'code': row[0]} for row in code_reader if valid_short_code(row)]
 
 		self.response.write(json.dumps(codes))
 
