@@ -51,6 +51,7 @@ angular.module('urlApp', [], function($locationProvider) {
 
 			$http.get('api/short-url?path='+determinePath(self.url)).success(
 				function(data) {
+					
 					self.shortUrl = data.fields.shortUrl;
 					self.linkText = data.fields.linkText;
 
