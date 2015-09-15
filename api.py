@@ -17,7 +17,7 @@ class ShortUrlLookup(webapp2.RequestHandler):
 		path = self.request.get('path')
 
 		payload = {
-			'show-fields': 'shortUrl,linkText',
+			'show-fields': 'shortUrl,linkText,trailText',
 		}
 
 		content_data = content_api.read(path, payload)

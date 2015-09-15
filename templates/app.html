@@ -1,5 +1,5 @@
 <script>
-angular.module('urlApp', [], function($locationProvider) {
+angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 		$locationProvider.html5Mode({
 			enabled: true,
 			requireBase: false
@@ -14,7 +14,7 @@ angular.module('urlApp', [], function($locationProvider) {
 		self.shortCodes = [];
 		self.selectedShortCode = undefined;
 
-		self.linkText = undefined;
+		self.trailText = undefined;
 
 		self.lastErrorMessage = undefined;
 
@@ -53,7 +53,7 @@ angular.module('urlApp', [], function($locationProvider) {
 				function(data) {
 					
 					self.shortUrl = data.fields.shortUrl;
-					self.linkText = data.fields.linkText;
+					self.trailText = data.fields.trailText;
 
 					if(data.sectionId) {
 						$http.get('api/short-codes/section/' + data.sectionId).success(function(data) {
