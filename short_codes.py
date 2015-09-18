@@ -1,3 +1,4 @@
+import logging
 import csv
 import StringIO
 
@@ -7,6 +8,8 @@ columns = {
 	'campaign': 3,
 	'section': 5,
 }
+
+premier_campaigns = {'Twitter', 'Facebook', 'Instagram', 'Tumblr'}
 
 def output_data(row):
 	return {'name': row[10], 'code': row[0]}
@@ -19,8 +22,8 @@ def valid_short_code(section, short_code_row):
 
 	campaign_section = short_code_row[5]
 	campaign_code = short_code_row[3]
-	valid_campaigns = {'Twitter', 'Facebook', 'Instagram', 'Tumblr'}
-	if campaign_code in valid_campaigns:
+
+	if campaign_code in premier_campaigns:
 		if not section:
 			return True
 
@@ -36,10 +39,9 @@ def general_short_code(short_code_row):
 
 	campaign_section = short_code_row[columns['section']]
 	campaign_code = short_code_row[columns['campaign']]
+	logging.info(campaign_code)
 
-	valid_campaigns = {'Twitter', 'Facebook', 'Instagram', 'Tumblr'}
-
-	if campaign_code in valid_campaigns and not campaign_section:
+	if campaign_code in premier_campaigns and not campaign_section:
 		return True
 
 	return False
@@ -47,7 +49,7 @@ def general_short_code(short_code_row):
 def section_specific_codes(section, short_code_data):
 	if not section:
 		return []
-	return [output_data(row) for row in short_code_data if row[columns['section']] == section]
+	return [output_data(row) for row in short_code_data if row[columns['section']] == section and row[columns['campaign']] in premier_campaigns]
 
 def codes(section=None):
 
