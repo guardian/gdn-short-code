@@ -4,13 +4,12 @@ import os
 import json
 import logging
 from urllib import quote, urlencode
-import csv
-import StringIO
 
 from google.appengine.api import urlfetch
 
-import data
 import content_api
+import short_codes
+import headers
 
 class ShortUrlLookup(webapp2.RequestHandler):
 	def get(self):
@@ -34,32 +33,9 @@ class ShortUrlLookup(webapp2.RequestHandler):
 
 class ShortCodes(webapp2.RequestHandler):
 	def get(self, section=None):
+		headers.json(self.response)
 
-		code_reader = csv.reader(StringIO.StringIO(data.codes_csv), csv.excel)
-
-		def valid_short_code(short_code_row):
-			if not len(row) > 0:
-				return False
-
-			campaign_section = short_code_row[5]
-			campaign_code = short_code_row[3]
-			valid_campaigns = {'Twitter', 'Facebook', 'Instagram', 'Tumblr'}
-			if campaign_code in valid_campaigns:
-				if not section:
-					return True
-
-				if not campaign_section:
-					return True
-
-				if section and section == campaign_section:
-					return True
-
-			return False
-
-
-		codes = [{'name': row[10], 'code': row[0]} for row in code_reader if valid_short_code(row)]
-
-		self.response.write(json.dumps(codes))
+		self.response.write(json.dumps(short_codes.codes(section)))
 
 app = webapp2.WSGIApplication([
 	webapp2.Route(r'/api/short-url', handler=ShortUrlLookup),
