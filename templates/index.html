@@ -30,6 +30,15 @@
 				ng-options="sc.name for sc in ctrl.shortCodes track by sc.code"
 				ng-change="ctrl.shortCodeChange()">
 			</select>
+
+			<div class="form-group">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" ng-model="ctrl.showAllCodes" ng-change="ctrl.toggleAllCodes()"> Show all short codes 
+					</label>
+				</div>
+			</div>
+
 			</form>
 			</div>
 		</div>

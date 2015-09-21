@@ -12,14 +12,21 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 		self.shareableUrl = undefined;
 
 		self.shortCodes = [];
+		self.allShortCodes = [];
 		self.selectedShortCode = undefined;
+		self.savedShortCodes = [];
 
 		self.trailText = undefined;
 
 		self.lastErrorMessage = undefined;
 
+		self.showAllCodes = true;
+
 		$http.get('api/short-codes').success(function(data) {
 			self.shortCodes = data;
+			self.allShortCodes = data;
+			self.savedShortCodes = data;
+
 			if(data && data.length > 0) {
 				self.selectedShortCode = data[0];
 			}
@@ -54,6 +61,7 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 					
 					self.shortUrl = data.fields.shortUrl;
 					self.trailText = data.fields.trailText;
+					self.showAllCodes = false;
 
 					if(data.sectionId) {
 						$http.get('api/short-codes/section/' + data.sectionId).success(function(data) {
@@ -69,6 +77,18 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 			).error(function() {
 				self.lastErrorMessage = "Url could not be resolved";
 			});
+		}
+
+		self.toggleAllCodes = function() {
+
+			if(self.showAllCodes) {
+				self.savedShortCodes = self.shortCodes;
+				self.shortCodes = self.allShortCodes.slice();
+				self.selectedShortCode = self.shortCodes[0];
+			} else {
+				self.shortCodes = self.savedShortCodes;
+				self.selectedShortCode = self.shortCodes[0];
+			}
 		}
 
 
