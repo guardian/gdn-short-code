@@ -18,7 +18,7 @@ def read_codes():
 	return filter(lambda row: len(row) > 0,
 		csv.reader(StringIO.StringIO(data.codes_csv), csv.excel))
 
-def valid_short_code(section, short_code_row):
+def valid_short_code(short_code_row, section=None):
 
 	campaign_section = short_code_row[5]
 	campaign_code = short_code_row[3]
@@ -39,7 +39,6 @@ def general_short_code(short_code_row):
 
 	campaign_section = short_code_row[columns['section']]
 	campaign_code = short_code_row[columns['campaign']]
-	logging.info(campaign_code)
 
 	if campaign_code in premier_campaigns and not campaign_section:
 		return True
@@ -54,6 +53,9 @@ def section_specific_codes(section, short_code_data):
 def codes(section=None):
 
 	all_codes = read_codes()
+
+	if not section:
+		return [output_data(row) for row in all_codes if valid_short_code(row)]
 
 	general_codes = [output_data(row) for row in all_codes if general_short_code(row)]
 
