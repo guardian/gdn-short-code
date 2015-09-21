@@ -47,16 +47,25 @@
 			<p class="error-message">{{ctrl.lastErrorMessage}}</p>
 		</div>
 
+		<div class="col-md-12" ng-show="ctrl.headline">
+			<p>Headline: <span ng-bind-html="ctrl.headline"></span></p>
+		</div>
+
+		<div class="col-md-12" ng-show="ctrl.linkText">
+			<p>Link text: <span ng-bind-html="ctrl.linkText"></span></p>
+		</div>
+
 		<div class="col-md-12" ng-show="ctrl.trailText">
 			<p>Trail text: <span ng-bind-html="ctrl.trailText"></span></p>
 		</div>
 
-		<div class="col-md-12" ng-show="ctrl.shareableUrl">
-			<p>Shareable url: {{ctrl.shareableUrl}} [<a ng-href="{{ctrl.shareableUrl}}">link</a>] </p>
-		</div>
-
 		<div class="col-md-12" ng-show="ctrl.shortUrl">
 			<p>Short url: <a ng-href="{{ctrl.shortUrl}}">{{ctrl.shortUrl}}</a></p>
+		</div>
+
+
+		<div class="col-md-12" ng-show="ctrl.shareableUrl">
+			<p>Shareable url: {{ctrl.shareableUrl}} [<a ng-href="{{ctrl.shareableUrl}}">link</a>] </p>
 		</div>
 
 		{% endraw %}

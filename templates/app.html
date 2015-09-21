@@ -17,6 +17,8 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 		self.savedShortCodes = [];
 
 		self.trailText = undefined;
+		self.linkText = undefined;
+		self.headline = undefined;
 
 		self.lastErrorMessage = undefined;
 
@@ -61,6 +63,8 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 					
 					self.shortUrl = data.fields.shortUrl;
 					self.trailText = data.fields.trailText;
+					self.headline = data.fields.headline;
+
 					self.showAllCodes = false;
 
 					if(data.sectionId) {
