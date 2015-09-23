@@ -48,7 +48,7 @@ def general_short_code(short_code_row):
 def check_section(section, short_code_row):
 	row_section = short_code_row[columns['section']]
 
-	if 'sport' in section and row_section in ['sport', 'football']:
+	if 'football' in section and row_section in ['sport', 'football']:
 			return True
 
 	if row_section in [section]:
