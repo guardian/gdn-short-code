@@ -45,10 +45,22 @@ def general_short_code(short_code_row):
 
 	return False
 
+def check_section(section, short_code_row):
+	row_section = short_code_row[columns['section']]
+
+	if 'sport' in section and row_section in ['sport', 'football']:
+			return True
+
+	if row_section in [section]:
+		return True
+
+	return False
+
+
 def section_specific_codes(section, short_code_data):
 	if not section:
 		return []
-	return [output_data(row) for row in short_code_data if row[columns['section']] == section and row[columns['campaign']] in premier_campaigns]
+	return [output_data(row) for row in short_code_data if check_section(section, row) and row[columns['campaign']] in premier_campaigns]
 
 def codes(section=None):
 
