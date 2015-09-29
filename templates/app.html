@@ -25,6 +25,8 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 		self.showAllCodes = true;
 		self.showDetails = false;
 
+		self.text = "";
+
 		$http.get('api/short-codes').success(function(data) {
 			self.shortCodes = data;
 			self.allShortCodes = data;
@@ -34,6 +36,10 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 				self.selectedShortCode = data[0];
 			}
 		});
+
+		function setText(state) {
+			return state.headline + " " + state.shareableUrl;
+		}
 
 		function calculateSharingUrl(state) {
 			return state.shortUrl + '?CMP=' + state.selectedShortCode.code;
@@ -49,6 +55,7 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 		self.shortCodeChange = function() {
 			if(self.url) {
 				self.shareableUrl = calculateSharingUrl(self);
+				self.text = setText(self);
 			}
 		}
 

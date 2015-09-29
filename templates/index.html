@@ -55,7 +55,7 @@
 	<div class="row row-space-after" ng-show="ctrl.shareableUrl">
 		<h3>Copy, paste and share <sup><a ng-href="{{ctrl.shareableUrl}}">link</a></sup></h3>
 		<div class="col-md-12">
-			<textarea class="form-control" rows="2">{{ctrl.headline}} {{ctrl.shareableUrl}}</textarea>
+			<textarea class="form-control" rows="2" ng-model="ctrl.text"></textarea>
 		</div>
 	</div>
 
