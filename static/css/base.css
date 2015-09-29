@@ -1,12 +1,16 @@
 
 body {
-			margin-top: 2em;
+			margin-top: 2rem;
+			margin-bottom: 2rem;
 	}
 
 .footer {
-    position: absolute;
-    bottom: 0px;
     width: 100%;
     height: 2.5rem;
     background-color: #F5F5F5;
+    margin-top: 2rem;
+}
+
+.row-space-after {
+	margin-bottom: 2rem;
 }

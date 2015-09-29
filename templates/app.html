@@ -23,6 +23,7 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 		self.lastErrorMessage = undefined;
 
 		self.showAllCodes = true;
+		self.showDetails = false;
 
 		$http.get('api/short-codes').success(function(data) {
 			self.shortCodes = data;
@@ -97,6 +98,10 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 			}
 
 			self.shortCodeChange();
+		}
+
+		self.toggleDetails = function() {
+			self.showDetails = !self.showDetails;
 		}
 
 

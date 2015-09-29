@@ -12,8 +12,9 @@
 		</div>
 	</div>
 
-	<div class="row" ng-controller="ShortUrlCtrl as ctrl">
-		{% raw %}
+	{% raw %}
+	<section ng-controller="ShortUrlCtrl as ctrl">
+	<div class="row">
 		<div class="col-md-12">
 			<form>
 			<div class="form-group">
@@ -42,34 +43,66 @@
 			</form>
 			</div>
 		</div>
+	</div>
 
-		<div class="col-md-12" ng-show="ctrl.lastErrorMessage">
+	<div class="row" ng-show="ctrl.lastErrorMessage">
+		<div class="col-md-12">
 			<p class="error-message">{{ctrl.lastErrorMessage}}</p>
 		</div>
-
-		<div class="col-md-12" ng-show="ctrl.headline">
-			<p>Headline: <span ng-bind-html="ctrl.headline"></span></p>
-		</div>
-
-		<div class="col-md-12" ng-show="ctrl.linkText">
-			<p>Link text: <span ng-bind-html="ctrl.linkText"></span></p>
-		</div>
-
-		<div class="col-md-12" ng-show="ctrl.trailText">
-			<p>Trail text: <span ng-bind-html="ctrl.trailText"></span></p>
-		</div>
-
-		<div class="col-md-12" ng-show="ctrl.shortUrl">
-			<p>Short url: <a ng-href="{{ctrl.shortUrl}}">{{ctrl.shortUrl}}</a></p>
-		</div>
-
-
-		<div class="col-md-12" ng-show="ctrl.shareableUrl">
-			<p>Use this for sharing on your account: {{ctrl.shareableUrl}} [<a ng-href="{{ctrl.shareableUrl}}">link</a>] </p>
-		</div>
-
-		{% endraw %}
 	</div>
+
+
+	<div class="row row-space-after" ng-show="ctrl.shareableUrl">
+		<h3>Copy, paste and share <sup><a ng-href="{{ctrl.shareableUrl}}">link</a></sup></h3>
+		<div class="col-md-12">
+			<textarea class="form-control" rows="2">{{ctrl.headline}} {{ctrl.shareableUrl}}</textarea>
+		</div>
+	</div>
+
+	<div class="row row-space-after" ng-show="ctrl.headline">
+		<div class="col-md-12">
+			<button class="btn btn-small" ng-click="ctrl.toggleDetails()">Show details</button>
+		</div>
+	</div>
+
+	<div class="details" ng-show="ctrl.showDetails">
+
+		<div class="row" ng-show="ctrl.headline">
+			<div class="col-md-12">
+				<p>Headline: <span ng-bind-html="ctrl.headline"></span></p>
+			</div>
+		</div>
+
+		<div class="row" ng-show="ctrl.linkText">
+			<div class="col-md-12">
+				<p>Link text: <span ng-bind-html="ctrl.linkText"></span></p>
+			</div>
+		</div>
+
+		<div class="row" ng-show="ctrl.trailText">
+			<div class="col-md-12">
+				<p>Trail text: <span ng-bind-html="ctrl.trailText"></span></p>
+			</div>
+		</div>
+
+		<div class="row" ng-show="ctrl.shortUrl">
+			<div class="col-md-12">
+				<p>Short url: <a ng-href="{{ctrl.shortUrl}}">{{ctrl.shortUrl}}</a></p>
+			</div>
+		</div>
+
+
+		<div class="row row-space-after" ng-show="ctrl.shareableUrl">
+			<div class="col-md-12">
+				<p>Use this for sharing on your account: {{ctrl.shareableUrl}} [<a ng-href="{{ctrl.shareableUrl}}">link</a>] </p>
+			</div>
+		</div>
+	</div>
+
+	</section>
+
+	{% endraw %}
+
 </div>
 
 {% include 'app.html' %}
