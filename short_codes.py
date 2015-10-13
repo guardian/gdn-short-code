@@ -11,6 +11,11 @@ columns = {
 
 premier_campaigns = {'Twitter', 'Facebook', 'Instagram', 'Tumblr'}
 
+parent_sections = {
+	'culture': ['film', 'music', 'tv-and-radio', 'stage', 'books', 'artanddesign'],
+	'sport': ['football'],
+}
+
 def output_data(row):
 	return {'name': row[10], 'code': row[0]}
 
@@ -48,8 +53,10 @@ def general_short_code(short_code_row):
 def check_section(section, short_code_row):
 	row_section = short_code_row[columns['section']]
 
-	if 'football' in section and row_section in ['sport', 'football']:
-			return True
+	for parent_section, sub_sections in parent_sections.items():
+		for sub_section in sub_sections:
+			if sub_section in section and row_section in [sub_section, parent_section]:
+				return True
 
 	if row_section in [section]:
 		return True

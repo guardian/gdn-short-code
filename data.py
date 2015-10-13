@@ -133,7 +133,7 @@ fb_a-cities_b-gdncities,gdncities,,Facebook,,cities,,,,,Cities - Facebook,UNIQUE
 fb_a-higher-education-network_b-gdnstudents,gdnstudents,,Facebook,,higher-education-network,,,,,Students - Facebook,UNIQUE
 fb_a-teacher-network_b-gdnteachernetwork,gdnteachernetwork,,Facebook,,teacher-network,,,,,Teacher Network - Facebook,UNIQUE
 fb_a-tv-and-radio_b-gdntvandradio,gdntvandradio,,Facebook,,tv-and-radio,,,,,TV and Radio - Facebook,UNIQUE
-fb_a-books_b-gdnteenbooks,gdnteenbooks,,Facebook,,books,,,,,Books - Facebook,UNIQUE
+fb_a-books_b-gdnteenbooks,gdnteenbooks,,Facebook,,books,,,,,Teen Books - Facebook,UNIQUE
 fb_a-sport_b-gdnussport,gdnussport,,Facebook,,sport,,,,,US Sports - Facebook,UNIQUE
 fb_b-gdnweekly,gdnweekly,,Facebook,,,,,,,Weekly - Facebook,UNIQUE
 fb_a-technology_b-gdngames,gdngames,,Facebook,,technology,,,,,Games - Facebook,UNIQUE
