@@ -134,7 +134,7 @@ fb_a-higher-education-network_b-gdnstudents,gdnstudents,,Facebook,,higher-educat
 fb_a-teacher-network_b-gdnteachernetwork,gdnteachernetwork,,Facebook,,teacher-network,,,,,Teacher Network - Facebook,UNIQUE
 fb_a-tv-and-radio_b-gdntvandradio,gdntvandradio,,Facebook,,tv-and-radio,,,,,TV and Radio - Facebook,UNIQUE
 fb_a-books_b-gdnteenbooks,gdnteenbooks,,Facebook,,books,,,,,Teen Books - Facebook,UNIQUE
-fb_a-sport_b-gdnussport,gdnussport,,Facebook,,sport,,,,,US Sports - Facebook,UNIQUE
+edi_3177,gdnussport,,Facebook,,sport,,,,,US Sports - Facebook,UNIQUE
 fb_b-gdnweekly,gdnweekly,,Facebook,,,,,,,Weekly - Facebook,UNIQUE
 fb_a-technology_b-gdngames,gdngames,,Facebook,,technology,,,,,Games - Facebook,UNIQUE
 fb_a-global-development-network_b-gdnglobaldevprofnetwork,gdnglobaldevprofnetwork,,Facebook,,global-development-professionals-network,,,,,Global Development Professional Network - Facebook,UNIQUE
