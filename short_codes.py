@@ -9,7 +9,7 @@ columns = {
 	'section': 5,
 }
 
-premier_campaigns = {'Twitter', 'Facebook', 'Instagram', 'Tumblr'}
+premier_campaigns = {'Twitter', 'Facebook', 'Instagram', 'Tumblr', 'Pinterest'}
 
 parent_sections = {
 	'culture': ['film', 'music', 'tv-and-radio', 'stage', 'books', 'artanddesign'],

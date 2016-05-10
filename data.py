@@ -156,4 +156,6 @@ tmb_a-football_b-sadfootballers,SadFootballers,,Tumblr,,football,,,,,SadFootball
 fb_b-firstdog_c-au_g-3,firstdog,,Facebook,,,AU,,,,First Dog on the Moon - Facebook,UNIQUE
 twt_b-cifaus_c-au_g-3,cifaus,,Twitter,,commentisfree,AU,AU,,,@Cif_Australia - Twitter,UNIQUE
 twt_b-realitycheck,realitycheck,,Twitter,,,,,,,@RealityCheck - Twitter,UNIQUE
+pin_b-theguardian,Global Pinterest,,Pinterest,,,,,,,The Guardian - Pinterest,UNIQUE
+fb_b-cookperfect,Cook Perfect,,Facebook,,,,,,,Cook Perfect - Facebook,UNIQUE
 """
