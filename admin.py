@@ -13,6 +13,14 @@ from models import Configuration
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "templates")))
 
+class AdminPage(webapp2.RequestHandler):
+	def get(self):
+		template = jinja_environment.get_template('admin/index.html')
+		
+		template_values = {}
+
+		self.response.out.write(template.render(template_values))
+
 class ConfigurationPage(webapp2.RequestHandler):
 	def get(self):
 		template = jinja_environment.get_template('admin/configuration.html')
@@ -31,7 +39,21 @@ class ConfigurationPage(webapp2.RequestHandler):
 		configuration.create(key, value)
 
 		return webapp2.redirect('/admin/configuration')
-		
 
-app = webapp2.WSGIApplication([('/admin/configuration', ConfigurationPage)],
+class ShortcodesPage(webapp2.RequestHandler):
+	def get(self):
+		template = jinja_environment.get_template('admin/short-codes.html')
+		
+		template_values = {}
+
+		self.response.out.write(template.render(template_values))
+
+	def post(self):
+
+		return webapp2.redirect('/admin/short-codes')		
+
+app = webapp2.WSGIApplication([
+	('/admin/configuration', ConfigurationPage),
+	('/admin/short-codes', ShortcodesPage),
+	('/admin', AdminPage),],
                               debug=True)
