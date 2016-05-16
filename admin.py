@@ -44,7 +44,9 @@ class ShortcodesPage(webapp2.RequestHandler):
 	def get(self):
 		template = jinja_environment.get_template('admin/short-codes.html')
 		
-		template_values = {}
+		template_values = {
+			"networks": ["Facebook", "Twitter"]
+		}
 
 		self.response.out.write(template.render(template_values))
 

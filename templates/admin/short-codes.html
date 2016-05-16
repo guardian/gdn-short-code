@@ -25,6 +25,14 @@
 					<input id="campaign_code" type="text" name="campaign_code" class="form-control" placeholder="Campaign code" required>
 				</div>
 				<div class="form-group">
+					<label for="network">Network</label>
+					<select class="form-control">
+						{% for network in networks %}
+						<option>{{network}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group">
 				<button type="submit" class="btn btn-default">Save</button>
 				</div>
 			</form>
