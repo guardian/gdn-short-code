@@ -17,7 +17,7 @@ parent_sections = {
 }
 
 def output_data(row):
-	return {'name': row[10], 'code': row[0]}
+	return {'name': row[10], 'code': row[0], 'campaign': row[columns['campaign']]}
 
 def read_codes():
 	return filter(lambda row: len(row) > 0,
