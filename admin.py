@@ -47,7 +47,7 @@ class ShortcodesPage(webapp2.RequestHandler):
 		template = jinja_environment.get_template('admin/short-codes.html')
 		
 		template_values = {
-			"networks": ["Facebook", "Twitter"],
+			"campaigns": ["Facebook", "Twitter"],
 			"short_codes": repositories.short_codes.all(),
 		}
 
@@ -60,9 +60,9 @@ class ShortcodesPage(webapp2.RequestHandler):
 
 		name = data.get("name")
 		code = data.get("campaign_code")
-		network = data.get("network")
+		campaign = data.get("campaign")
 
-		repositories.short_codes.create(name, code, network)
+		repositories.short_codes.create(name, code, campaign)
 
 		return webapp2.redirect('/admin/short-codes')		
 

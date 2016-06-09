@@ -25,10 +25,10 @@
 					<input id="campaign_code" type="text" name="campaign_code" class="form-control" placeholder="Campaign code" required>
 				</div>
 				<div class="form-group">
-					<label for="network">Network</label>
-					<select class="form-control" name="network" required>
-						{% for network in networks %}
-						<option>{{network}}</option>
+					<label for="campaign">Campaign</label>
+					<select class="form-control" name="campaign" required>
+						{% for campaign in campaigns %}
+						<option>{{campaign}}</option>
 						{% endfor %}
 					</select>
 				</div>
@@ -42,7 +42,7 @@
 			
 			<ul>
 				{% for short_code in short_codes %}
-				<li>{{short_code.name}} - {{short_code.code}} - {{short_code.network}}</li>
+				<li>{{short_code.name}} - {{short_code.code}} - {{short_code.campaign}}</li>
 				{% endfor %}
 
 		</div>
