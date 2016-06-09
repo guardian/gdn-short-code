@@ -14,4 +14,4 @@ def create(name, code, network):
 
 def all():
 
-	return ShortCode.query()
+	return [sc for sc in ShortCode.query()]
