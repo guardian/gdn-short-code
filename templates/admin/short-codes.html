@@ -26,7 +26,7 @@
 				</div>
 				<div class="form-group">
 					<label for="network">Network</label>
-					<select class="form-control">
+					<select class="form-control" name="network" required>
 						{% for network in networks %}
 						<option>{{network}}</option>
 						{% endfor %}
@@ -40,7 +40,10 @@
 		<div class="col-md-6">
 			<h2>Short codes</h2>
 			
-
+			<ul>
+				{% for short_code in short_codes %}
+				<li>{{short_code.name}} - {{short_code.code}} - {{short_code.network}}</li>
+				{% endfor %}
 
 		</div>
 	</div>

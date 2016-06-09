@@ -10,6 +10,8 @@ import configuration
 
 from models import Configuration
 
+import repositories
+
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "templates")))
 
@@ -34,7 +36,7 @@ class ConfigurationPage(webapp2.RequestHandler):
 	def post(self):
 		key = self.request.POST['key']
 		value = self.request.POST['value']
-		map(lambda x: logging.info(x), [key, value])
+		#map(lambda x: logging.info(x), [key, value])
 
 		configuration.create(key, value)
 
@@ -45,12 +47,22 @@ class ShortcodesPage(webapp2.RequestHandler):
 		template = jinja_environment.get_template('admin/short-codes.html')
 		
 		template_values = {
-			"networks": ["Facebook", "Twitter"]
+			"networks": ["Facebook", "Twitter"],
+			"short_codes": repositories.short_codes.all(),
 		}
 
 		self.response.out.write(template.render(template_values))
 
 	def post(self):
+		logging.info(self.request.POST)
+
+		data = self.request.POST
+
+		name = data.get("name")
+		code = data.get("campaign_code")
+		network = data.get("network")
+
+		repositories.short_codes.create(name, code, network)
 
 		return webapp2.redirect('/admin/short-codes')		
 
