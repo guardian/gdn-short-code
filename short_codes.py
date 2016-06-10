@@ -3,6 +3,7 @@ import csv
 import StringIO
 
 import data
+import repositories
 
 columns = {
 	'campaign': 3,
@@ -71,11 +72,13 @@ def section_specific_codes(section, short_code_data):
 
 def codes(section=None):
 
+	data_codes = [{"name": sc.name, "code": sc.code} for sc in repositories.short_codes.all()]
+
 	all_codes = read_codes()
 
 	if not section:
-		return [output_data(row) for row in all_codes if valid_short_code(row)]
+		return [output_data(row) for row in all_codes if valid_short_code(row)] + data_codes
 
 	general_codes = [output_data(row) for row in all_codes if general_short_code(row)]
 
-	return section_specific_codes(section, all_codes) + general_codes
+	return section_specific_codes(section, all_codes) + general_codes + data_codes

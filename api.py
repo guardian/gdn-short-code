@@ -35,7 +35,9 @@ class ShortCodes(webapp2.RequestHandler):
 	def get(self, section=None):
 		headers.json(self.response)
 
-		self.response.write(json.dumps(short_codes.codes(section)))
+		codes = short_codes.codes(section)
+
+		self.response.write(json.dumps(codes))
 
 app = webapp2.WSGIApplication([
 	webapp2.Route(r'/api/short-url', handler=ShortUrlLookup),

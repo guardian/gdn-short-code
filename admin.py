@@ -10,8 +10,18 @@ import configuration
 
 from models import Configuration
 
+import repositories
+
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "templates")))
+
+class AdminPage(webapp2.RequestHandler):
+	def get(self):
+		template = jinja_environment.get_template('admin/index.html')
+		
+		template_values = {}
+
+		self.response.out.write(template.render(template_values))
 
 class ConfigurationPage(webapp2.RequestHandler):
 	def get(self):
@@ -26,12 +36,38 @@ class ConfigurationPage(webapp2.RequestHandler):
 	def post(self):
 		key = self.request.POST['key']
 		value = self.request.POST['value']
-		map(lambda x: logging.info(x), [key, value])
+		#map(lambda x: logging.info(x), [key, value])
 
 		configuration.create(key, value)
 
 		return webapp2.redirect('/admin/configuration')
-		
 
-app = webapp2.WSGIApplication([('/admin/configuration', ConfigurationPage)],
+class ShortcodesPage(webapp2.RequestHandler):
+	def get(self):
+		template = jinja_environment.get_template('admin/short-codes.html')
+		
+		template_values = {
+			"campaigns": ["Facebook", "Twitter"],
+			"short_codes": repositories.short_codes.all(),
+		}
+
+		self.response.out.write(template.render(template_values))
+
+	def post(self):
+		logging.info(self.request.POST)
+
+		data = self.request.POST
+
+		name = data.get("name")
+		code = data.get("campaign_code")
+		campaign = data.get("campaign")
+
+		repositories.short_codes.create(name, code, campaign)
+
+		return webapp2.redirect('/admin/short-codes')		
+
+app = webapp2.WSGIApplication([
+	('/admin/configuration', ConfigurationPage),
+	('/admin/short-codes', ShortcodesPage),
+	('/admin', AdminPage),],
                               debug=True)
