@@ -42,7 +42,7 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 		}
 
 		function calculateSharingUrl(state) {
-			return state.shortUrl + '?CMP=' + state.selectedShortCode.code;
+			return state.url + '?CMP=' + state.selectedShortCode.code;
 		}
 
 		function determinePath(url) {
