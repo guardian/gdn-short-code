@@ -15,3 +15,12 @@ def create(name, code, campaign):
 def all():
 
 	return [sc for sc in ShortCode.query()]
+
+def delete(key):
+	key = ndb.Key(urlsafe=key)
+
+	code = key.get()
+
+	key.delete()
+
+	return code

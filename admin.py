@@ -54,7 +54,6 @@ class ShortcodesPage(webapp2.RequestHandler):
 		self.response.out.write(template.render(template_values))
 
 	def post(self):
-		logging.info(self.request.POST)
 
 		data = self.request.POST
 
@@ -64,10 +63,22 @@ class ShortcodesPage(webapp2.RequestHandler):
 
 		repositories.short_codes.create(name, code, campaign)
 
-		return webapp2.redirect('/admin/short-codes')		
+		return webapp2.redirect('/admin/short-codes')
+
+class ShortcodeDeletionRequest(webapp2.RequestHandler):
+	def post(self):
+
+		key = self.request.POST['key']
+
+		logging.info(key)
+
+		repositories.short_codes.delete(key)
+
+		return webapp2.redirect('/admin/short-codes')
 
 app = webapp2.WSGIApplication([
 	('/admin/configuration', ConfigurationPage),
 	('/admin/short-codes', ShortcodesPage),
+	('/admin/short-codes/delete-form', ShortcodeDeletionRequest),
 	('/admin', AdminPage),],
                               debug=True)

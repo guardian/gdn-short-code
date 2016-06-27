@@ -14,3 +14,11 @@ body {
 .row-space-after {
 	margin-bottom: 2rem;
 }
+
+.short-code-display {
+	display: flex;
+}
+
+.short-code-display > * {
+	margin-right: 2rem;
+}

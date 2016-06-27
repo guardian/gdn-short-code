@@ -42,7 +42,7 @@
 			
 			<ul>
 				{% for short_code in short_codes %}
-				<li>{{short_code.name}} - {{short_code.code}} - {{short_code.campaign}}</li>
+				<li class="short-code-display"><span class="short-code-display__summary">{{short_code.name}} - {{short_code.code}} - {{short_code.campaign}}</span> <form method="POST" action="/admin/short-codes/delete-form" class="form-inline"><input type="hidden" name="key" value="{{short_code.key.urlsafe()}}"><button type="submit" class="btn btn-sm">Delete</button></form></li>
 				{% endfor %}
 
 		</div>
