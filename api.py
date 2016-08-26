@@ -33,9 +33,14 @@ class ShortUrlLookup(webapp2.RequestHandler):
 
 class ShortCodes(webapp2.RequestHandler):
 	def get(self, section=None):
+		view = self.request.get('view')
+		is_commercial = False
+		if view == 'commercial':
+			is_commercial = True
+
 		headers.json(self.response)
 
-		codes = short_codes.codes(section)
+		codes = short_codes.codes(section, is_commercial)
 
 		self.response.write(json.dumps(codes))
 

@@ -2,7 +2,8 @@ import logging
 import csv
 import StringIO
 
-import data
+import commercial_data
+import editorial_data
 import repositories
 
 columns = {
@@ -20,7 +21,12 @@ parent_sections = {
 def output_data(row):
 	return {'name': row[10], 'code': row[0], 'campaign': row[columns['campaign']]}
 
-def read_codes():
+def read_codes(isCommercial):
+	if isCommercial:
+		data = commercial_data
+	else:
+		data = editorial_data
+
 	return filter(lambda row: len(row) > 0,
 		csv.reader(StringIO.StringIO(data.codes_csv), csv.excel))
 
@@ -70,11 +76,11 @@ def section_specific_codes(section, short_code_data):
 		return []
 	return [output_data(row) for row in short_code_data if check_section(section, row) and row[columns['campaign']] in premier_campaigns]
 
-def codes(section=None):
+def codes(section=None, is_commercial=False):
 
 	data_codes = [{"name": sc.name, "code": sc.code} for sc in repositories.short_codes.all()]
 
-	all_codes = read_codes()
+	all_codes = read_codes(is_commercial)
 
 	if not section:
 		return [output_data(row) for row in all_codes if valid_short_code(row)] + data_codes

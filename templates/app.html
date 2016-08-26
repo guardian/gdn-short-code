@@ -22,13 +22,17 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 		self.headline = undefined;
 
 		self.lastErrorMessage = undefined;
+        self.view = "editorial";
+        if($location.search().view == "commercial") {
+            self.view = "commercial"
+        }
 
 		self.showAllCodes = true;
 		self.showDetails = false;
 
 		self.text = "";
 
-		$http.get('api/short-codes').success(function(data) {
+		$http.get('api/short-codes?view='+self.view).success(function(data) {
 			self.shortCodes = data;
 			self.allShortCodes = data;
 			self.savedShortCodes = data;
