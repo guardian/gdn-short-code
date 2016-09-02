@@ -29,6 +29,7 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 
 		self.showAllCodes = true;
 		self.showDetails = false;
+        self.campaignType = "CMP"
 
 		self.text = "";
 
@@ -47,12 +48,23 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 		}
 
 		function calculateSharingUrl(state) {
-			return state.url + '?CMP=' + state.selectedShortCode.code;
+		    if(state.campaignType == "GAE") return state.url + calculateGAEcodes(state);
+            else if (state.campaignType == "INTCMP") return state.url + '?INTCMP=' + state.selectedShortCode.code;
+			else return state.url + '?CMP=' + state.selectedShortCode.code;
 		}
 
 		function calculateShortSharingUrl(state) {
-			return state.shortUrl + '?CMP=' + state.selectedShortCode.code;
+            if(state.campaignType == "GAE") return state.shortUrl + calculateGAEcodes(state);
+            else if (state.campaignType == "INTCMP") return state.shortUrl + '?INTCMP=' + state.selectedShortCode.code;
+            return state.shortUrl + '?CMP=' + state.selectedShortCode.code;
 		}
+
+		function calculateGAEcodes(state) {
+		    return '?utm_source=' + state.selectedShortCode.utm_source +
+                    "&utm_campaign=" + state.selectedShortCode.utm_campaign +
+                    "&utm_medium=" + state.selectedShortCode.utm_medium +
+                    "utm_content=" + state.selectedShortCode.utm_content;
+        }
 
 		function determinePath(url) {
 			var el = $document[0].createElement('a');
@@ -118,9 +130,13 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 		}
 
 		self.toggleDetails = function() {
-			self.showDetails = !self.showDetails;
-		}
+            self.showDetails = !self.showDetails;
+            console.log(self.showDetails)
+        }
 
+        self.toggleCampaign = function () {
+            self.shortCodeChange();
+        }
 
 		var params = $location.search();
 		

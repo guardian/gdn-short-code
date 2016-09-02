@@ -19,7 +19,15 @@ parent_sections = {
 }
 
 def output_data(row):
-	return {'name': row[10], 'code': row[0], 'campaign': row[columns['campaign']]}
+	return {
+		'name': row[10],
+		'code': row[0],
+		'campaign': row[columns['campaign']],
+		'utm_campaign' : row[1],
+		'utm_source' : row[3],
+		'utm_medium' : row[4],
+		'utm_content' : row[10]
+	}
 
 def read_codes(isCommercial):
 	if isCommercial:

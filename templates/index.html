@@ -35,10 +35,25 @@
 			<div class="form-group">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" ng-model="ctrl.showAllCodes" ng-change="ctrl.toggleAllCodes()"> Show all short codes 
+						<input type="checkbox" ng-model="ctrl.showAllCodes" ng-change="ctrl.toggleAllCodes()" id="toggleAllCodes"> Show all short codes
 					</label>
 				</div>
-			</div>
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="ctrl.campaignType" value="GAE" ng-change="ctrl.toggleCampaign()"> GAE
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="ctrl.campaignType" value="INTCMP" ng-change="ctrl.toggleCampaign()"> Internal
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="ctrl.campaignType" value="CMP" ng-change="ctrl.toggleCampaign()"> External (Omniture)
+                    </label>
+                </div>
 
 			</form>
 			</div>
