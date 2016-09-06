@@ -26,9 +26,14 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 		self.showAllCodes = true;
 		self.showDetails = false;
 
+        self.view = 'cmp'
+        if($location.search().view == "ga") {
+            self.view = "ga"
+        }
+
 		self.text = "";
 
-		$http.get('api/short-codes').success(function(data) {
+		$http.get('api/short-codes?view='+self.view).success(function(data) {
 			self.shortCodes = data;
 			self.allShortCodes = data;
 			self.savedShortCodes = data;
