@@ -21,6 +21,9 @@ handlers:
 - url: /.*
   script: app.app
   secure: always
+- url: /ga/.*
+  script: app.app
+  secure: always
 
 libraries:
 - name: jinja2

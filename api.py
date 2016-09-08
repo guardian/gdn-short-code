@@ -36,8 +36,8 @@ class ShortCodes(webapp2.RequestHandler):
 	def get(self, section=None):
 		headers.json(self.response)
 
-		view = self.request.get('view')
-		if view == 'ga':
+		campaignType = self.request.get('campaignType')
+		if campaignType == 'ga':
 			codes = short_codes_ga.codes(section)
 		else:
 			codes = short_codes.codes(section)

@@ -6,7 +6,7 @@ import data_ga
 import repositories
 
 columns = {
-	'campaign': 0,
+	'campaign': 2,
 	'section': 6,
 }
 
@@ -22,8 +22,8 @@ def output_data(row):
 			'code': '',
 			'campaign': row[2],
 			'utm_campaign' : row[2],
-			'utm_sourceutm_source' : row[0],
-			'utm_medium' : row[1],
+			'utm_source' : row[1],
+			'utm_medium' : row[0],
 			'utm_content' : row[3],
 			'utm_term' : row[4],
 			'INTCMP' : row[5]
@@ -36,8 +36,8 @@ def read_codes():
 
 def valid_short_code(short_code_row, section=None):
 
-	campaign_section = short_code_row[6]
-	campaign_code = short_code_row[0]
+	campaign_section = short_code_row[columns['section']]
+	campaign_code = short_code_row[1]
 
 	if campaign_code in premier_campaigns:
 		if not section:

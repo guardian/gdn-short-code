@@ -35,7 +35,7 @@
 			<div class="form-group">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" ng-model="ctrl.showAllCodes" ng-change="ctrl.toggleAllCodes()"> Show all short codes 
+						<input type="checkbox" ng-model="ctrl.showAllCodes" ng-change="ctrl.toggleAllCodes()"> Show all short codes
 					</label>
 				</div>
 			</div>
@@ -45,12 +45,13 @@
 		</div>
 	</div>
 
-	<div class="row" ng-show="ctrl.lastErrorMessage">
-		<div class="col-md-12">
-			<p class="error-message">{{ctrl.lastErrorMessage}}</p>
-		</div>
-	</div>
-
+    <span ng-show="ctrl.campaignType === 'ga'">
+        <div class="checkbox">
+		    <label>
+			    <input type="checkbox" ng-model="ctrl.isInternal" ng-change="ctrl.toggleInternal()"> Internal campaign
+            </label>
+        </div>
+    </span>
 
 	<div class="row row-space-after" ng-show="ctrl.shareableUrl">
 		<h3>Copy, paste and share <sup><a ng-href="{{ctrl.shareableUrl}}">link</a></sup></h3>

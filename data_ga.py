@@ -1,7 +1,10 @@
-# * mandatory
-# capaign_source*,campaign_medium*,campaign_name*,campaign_content,campaign_term,internal_campaign,section,comment
+#* columns are mandatory
+#Medium*,Source*,Campaign Name*,Campaign Content,Campaign Term,Internal Campaign,Section,Destination URL,Campaign-Tagged URL
+#utm_medium,utm_source,utm_campaign,utm_content,utm_term,INTCMP,,,,,
+# dummy data
 codes_csv = """
-Facebook,PPC,Whatever - I hopeless at names,photo,top banner,internal-campaign,commentisfree,some comment
-Twitter,PPC,Whatever - I hopeless at names,photo,top banner,internal-campaign,commentisfree,some comment
-Facebook,PPC,Whatever - I hopeless at names,photo,top banner,internal-campaign,politics,some comment
+e-mail,Facebook,campaign A,photo,,internal campaign A,,,
+PCC,theguardian.com,campaign B,,MPU,,commentisfree,,
+Facebook,Facebook,campaign C,link,side banner,internal campaign B,commentisfree,,
+Twitter,Twitter,campaign D,link,,,,,,
 """
