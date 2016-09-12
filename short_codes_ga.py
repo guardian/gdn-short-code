@@ -2,12 +2,12 @@ import logging
 import csv
 import StringIO
 
-import data
+import data_ga
 import repositories
 
 columns = {
-	'campaign': 3,
-	'section': 5,
+	'campaign': 2,
+	'section': 6,
 }
 
 premier_campaigns = {'Twitter', 'Facebook', 'Instagram', 'Tumblr', 'Pinterest'}
@@ -18,24 +18,26 @@ parent_sections = {
 }
 
 def output_data(row):
-	return {'name': row[10],
-			'code': row[0],
-			'campaign': row[columns['campaign']],
-			'utm_campaign' : '',
-			'utm_source' : '',
-			'utm_medium' : '',
-			'utm_content' : '',
-			'utm_term' : '',
-			'INTCMP' : ''}
+	return {'name': row[2],
+			'code': '',
+			'campaign': row[2],
+			'utm_campaign' : row[2],
+			'utm_source' : row[1],
+			'utm_medium' : row[0],
+			'utm_content' : row[3],
+			'utm_term' : row[4],
+			'INTCMP' : row[5]
+			}
 
 def read_codes():
+	data = data_ga
 	return filter(lambda row: len(row) > 0,
 		csv.reader(StringIO.StringIO(data.codes_csv), csv.excel))
 
 def valid_short_code(short_code_row, section=None):
 
-	campaign_section = short_code_row[5]
-	campaign_code = short_code_row[3]
+	campaign_section = short_code_row[columns['section']]
+	campaign_code = short_code_row[1]
 
 	if campaign_code in premier_campaigns:
 		if not section:
@@ -65,11 +67,11 @@ def check_section(section, short_code_row):
 	for parent_section, sub_sections in parent_sections.items():
 		for sub_section in sub_sections:
 			if sub_section in section and row_section in [sub_section, parent_section]:
+				logging.info('1')
 				return True
 
 	if row_section in [section]:
 		return True
-
 	return False
 
 

@@ -26,9 +26,15 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 		self.showAllCodes = true;
 		self.showDetails = false;
 
-		self.text = "";
+        self.campaignType = "";
+        self.isInternal = false;
 
-		$http.get('api/short-codes').success(function(data) {
+        if($location.path() == "/ga") {
+            self.campaignType = 'ga'
+        }
+
+		self.text = "";
+		$http.get('api/short-codes?campaignType='+self.campaignType).success(function(data) {
 			self.shortCodes = data;
 			self.allShortCodes = data;
 			self.savedShortCodes = data;
@@ -43,12 +49,31 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 		}
 
 		function calculateSharingUrl(state) {
-			return state.url + '?CMP=' + state.selectedShortCode.code;
+		    if(state.campaignType == 'ga') {
+                if(state.isInternal === false) return state.url + calculateGAEcodes(state);
+                else return state.url + '?INTCMP='+encodeURI(state.selectedShortCode.INTCMP);
+            }
+            else return state.url + '?CMP=' + state.selectedShortCode.code;
 		}
 
 		function calculateShortSharingUrl(state) {
-			return state.shortUrl + '?CMP=' + state.selectedShortCode.code;
+            if(state.campaignType == 'ga') {
+                if(state.isInternal === false) return state.shortUrl + calculateGAEcodes(state);
+                else return state.shortUrl + '?INTCMP='+encodeURI(state.selectedShortCode.INTCMP);
+            }
+            else return state.shortUrl + '?CMP=' + state.selectedShortCode.code;
 		}
+
+        function calculateGAEcodes(state) {
+            utm_content = state.selectedShortCode.utm_content !== "" ? "&utm_content=" + encodeURI(state.selectedShortCode.utm_content) : "";
+            utm_term = state.selectedShortCode.utm_term !== "" ? "&utm_term=" + encodeURI(state.selectedShortCode.utm_term) : "";
+
+            return '?' +
+                "utm_source=" + encodeURI(state.selectedShortCode.utm_source) +
+                "&utm_campaign=" + encodeURI(state.selectedShortCode.utm_campaign) +
+                "&utm_medium=" + encodeURI(state.selectedShortCode.utm_medium) +
+                utm_content + utm_term
+        }
 
 		function determinePath(url) {
 			var el = $document[0].createElement('a');
@@ -82,7 +107,7 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 					self.showAllCodes = false;
 
 					if(data.sectionId) {
-						$http.get('api/short-codes/section/' + data.sectionId).success(function(data) {
+						$http.get('api/short-codes/section/' + data.sectionId + '?campaignType=' + self.campaignType).success(function(data) {
 							self.shortCodes = data;
 							if(data && data.length > 0) {
 								self.selectedShortCode = data[0];
@@ -117,6 +142,9 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 			self.showDetails = !self.showDetails;
 		}
 
+        self.toggleInternal = function () {
+            self.shortCodeChange();
+        }
 
 		var params = $location.search();
 		

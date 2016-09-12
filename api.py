@@ -9,6 +9,7 @@ from google.appengine.api import urlfetch
 
 import content_api
 import short_codes
+import short_codes_ga
 import headers
 
 class ShortUrlLookup(webapp2.RequestHandler):
@@ -35,7 +36,11 @@ class ShortCodes(webapp2.RequestHandler):
 	def get(self, section=None):
 		headers.json(self.response)
 
-		codes = short_codes.codes(section)
+		campaignType = self.request.get('campaignType')
+		if campaignType == 'ga':
+			codes = short_codes_ga.codes(section)
+		else:
+			codes = short_codes.codes(section)
 
 		self.response.write(json.dumps(codes))
 
