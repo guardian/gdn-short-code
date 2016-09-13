@@ -34,7 +34,11 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
         }
 
 		self.text = "";
-		$http.get('api/short-codes?campaignType='+self.campaignType).success(function(data) {
+
+        getShortCodes();
+
+        function getShortCodes() {
+            $http.get('api/short-codes?campaignType='+self.campaignType).success(function(data) {
 			self.shortCodes = data;
 			self.allShortCodes = data;
 			self.savedShortCodes = data;
@@ -42,7 +46,7 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 			if(data && data.length > 0) {
 				self.selectedShortCode = data[0];
 			}
-		});
+		})};
 
 		function setText(state) {
 			return state.headline + " " + state.shareableUrl;
@@ -81,6 +85,33 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 
 			return el.pathname;
 		}
+
+		self.mediumChange = function () {
+            function match(value) {
+		        return value.utm_medium === self.selectedShortCode.utm_medium
+            }
+           self.shortCodes = self.shortCodes.filter(match);
+            self.shortCodeChange();
+            return self.shortCodes;        }
+
+        self.sourceChange = function () {
+            function match(value) {
+                return value.utm_source === self.selectedShortCode.utm_source
+            }
+            self.shortCodes = self.shortCodes.filter(match)
+            self.shortCodeChange()
+            return self.shortCodes
+
+        }
+
+        self.campaignChange = function () {
+            function match(value) {
+                return value.utm_campaign === self.selectedShortCode.utm_campaign
+            }
+            self.shortCodes = self.shortCodes.filter(match)
+            self.shortCodeChange()
+            return self.shortCodes
+        }
 
 		self.shortCodeChange = function() {
 			if(self.url) {
@@ -144,6 +175,10 @@ angular.module('urlApp', ['ngSanitize'], function($locationProvider) {
 
         self.toggleInternal = function () {
             self.shortCodeChange();
+        }
+
+        self.reset = function() {
+            getShortCodes();
         }
 
 		var params = $location.search();
