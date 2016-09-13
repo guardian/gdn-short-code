@@ -23,16 +23,61 @@
 				ng-model="ctrl.url"
 				ng-change="ctrl.urlChange()">
 			</div>
+                <span ng-show="ctrl.campaignType !== 'ga'">
 
-			<div class="form-group">
-			<select id="short-code" class="form-control"
-				ng-required="true"
-				ng-model="ctrl.selectedShortCode"
-				ng-options="sc.name for sc in ctrl.shortCodes track by sc.code"
-				ng-change="ctrl.shortCodeChange()">
-			</select>
+                    <div class="form-group">
+                        <select id="short-code" class="form-control"
+                                ng-required="true"
+                                ng-model="ctrl.selectedShortCode"
+                                ng-options="sc.name for sc in ctrl.shortCodes track by sc.code"
+                                ng-change="ctrl.shortCodeChange()">
+                        </select>
+                    </div>
+                </span>
+                <span ng-show="ctrl.campaignType === 'ga'">
 
-			<div class="form-group">
+                <div class="form-group">
+                    <div class="row row-space-after">
+                        <div class="col-md-4">
+                            <label for="base-url">Medium</label>
+                            <select class="form-control"
+                                    ng-required="true"
+                                    ng-model="ctrl.selectedShortCode"
+                                    ng-options="sc.utm_medium for sc in ctrl.shortCodes"
+                                    ng-change="ctrl.mediumChange()">
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="base-url">Source</label>
+                            <select class="form-control"
+                                    ng-required="true"
+                                    ng-model="ctrl.selectedShortCode"
+                                    ng-options="sc.utm_source for sc in ctrl.shortCodes track by sc.utm_source"
+                                    ng-change="ctrl.sourceChange()">
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="base-url">Campaign name </label>
+                            <select class="form-control"
+                                    ng-required="true"
+                                    ng-model="ctrl.selectedShortCode"
+                                    ng-options="sc.utm_campaign for sc in ctrl.shortCodes track by sc.utm_campaign"
+                                    ng-change="ctrl.campaignChange()">
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="row row-space-after">
+                        <div class="col-md-12">
+                            <button class="btn btn-small" ng-click="ctrl.reset()">Reset filters</button>
+                        </div>
+                    </div>
+                    </span>
+
+                    <div class="form-group">
 				<div class="checkbox">
 					<label>
 						<input type="checkbox" ng-model="ctrl.showAllCodes" ng-change="ctrl.toggleAllCodes()"> Show all short codes
@@ -40,12 +85,13 @@
 				</div>
 			</div>
 
-			</form>
 			</div>
 		</div>
 	</div>
 
+
     <span ng-show="ctrl.campaignType === 'ga'">
+
         <div class="checkbox">
 		    <label>
 			    <input type="checkbox" ng-model="ctrl.isInternal" ng-change="ctrl.toggleInternal()"> Internal campaign

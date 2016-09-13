@@ -4,7 +4,7 @@
 # dummy data
 codes_csv = """
 e-mail,Facebook,campaign A,photo,,internal campaign A,,,
-PCC,theguardian.com,campaign B,,MPU,,commentisfree,,
-Facebook,Facebook,campaign C,link,side banner,internal campaign B,commentisfree,,
+e-mail,Twitter,campaign B,photo,,internal campaign B,,,
+Facebook,Facebook,campaign C,link,side banner,internal campaign C,commentisfree,,
 Twitter,Twitter,campaign D,link,,,,,,
 """
